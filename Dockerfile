@@ -10,7 +10,11 @@ FROM rocker/shiny:4.2
 #    htmltools \
 #    plotly
 COPY ./app/* /srv/shiny-server/
+COPY ./start.sh /start.sh
 RUN sed -i -e's/^run_as.*$/run_as default;/' /etc/shiny-server/shiny-server.conf
-USER shiny
+RUN chgrp root /etc/passwd
+RUN chmod g+w /etc/passwd
+RUN chmod +x /start.sh
+#USER shiny
 EXPOSE 3838
-CMD ["/usr/bin/shiny-server"]
+CMD ["/start.sh"]
