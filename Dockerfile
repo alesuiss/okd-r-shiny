@@ -10,6 +10,7 @@ FROM rocker/shiny:4.2
 #    htmltools \
 #    plotly
 COPY ./app/* /srv/shiny-server/
+RUN sed -i -e's/^run_as.*$/run_as default;/' /etc/shiny-server/shiny-server.conf
 USER shiny
 EXPOSE 3838
 CMD ["/usr/bin/shiny-server"]
