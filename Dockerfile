@@ -12,8 +12,8 @@ FROM rocker/shiny:4.2
 COPY ./app/* /srv/shiny-server/
 COPY ./start.sh /start.sh
 RUN sed -i -e's/^run_as.*$/run_as default;/' /etc/shiny-server/shiny-server.conf
-RUN chgrp root /etc/passwd
-RUN chmod g+w /etc/passwd
+RUN chgrp -R root /etc/passwd /var/log/shiny-server
+RUN chmod -R g+w /etc/passwd /var/log/shiny-server
 RUN chmod +x /start.sh
 #USER shiny
 EXPOSE 3838
